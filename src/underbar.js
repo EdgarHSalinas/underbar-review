@@ -197,20 +197,20 @@
   //          No accumulator is given so the first element is used.
   _.reduce = function(collection, iterator, accumulator) {
 
-     
+     var start = arguments.length === 2;
 
-     if (accumulator === undefined) {
-       accumulator = collection[0];
-       
-       for (var i = 1; i < collection.length; i++) {
-        accumulator = iterator(accumulator, collection[i]);
+     _.each(collection, function(value) {
+       if (start) {
+       accumulator = value;
+       start = false;
+       } else {
+       accumulator = iterator(accumulator, value);
        }
-     } 
-     if (accumulator) {
-       for (var i = 0; i < collection.length; i++) {
-        accumulator = iterator(accumulator, collection[i]);
-       } 
-     }
+       
+
+     });
+
+     
 
      return accumulator;
   };
@@ -219,10 +219,14 @@
   _.contains = function(collection, target) {
     // TIP: Many iteration problems can be most easily expressed in
     // terms of reduce(). Here's a freebie to demonstrate!
+
+    
     return _.reduce(collection, function(wasFound, item) {
+      console.log(item);
       if (wasFound) {
         return true;
       }
+      
       return item === target;
     }, false);
   };
