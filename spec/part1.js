@@ -195,7 +195,7 @@
       it('should find 40 in the list', function() {
         var numbers = [10, 20, 30, 40, 50];
 
-        expect(_.indexOf(FILL_ME_IN, 40)).to.equal(3);
+        expect(_.indexOf(numbers, 40)).to.equal(3);
       });
 
       it('should be able to compute indexOf even when the native function is undefined', function() {
@@ -205,14 +205,14 @@
       });
 
       it('returns -1 when the target cannot be found not in the list', function() {
-        var numbers = FILL_ME_IN;
+        var numbers = [10, 20, 30, 40, 50];
 
         expect(_.indexOf(numbers, 35)).to.equal(-1);
       });
 
       it('returns the first index that the target can be found at when there are multiple matches', function() {
-        var numbers = FILL_ME_IN;
-        expect(FILL_ME_IN).to.equal(1);
+        var numbers = [10,20,40,50,20]
+        expect(_.indexOf(numbers, 20)).to.equal(1);
       });
     });
 
@@ -227,7 +227,7 @@
 
       it('should return all odd numbers in an array', function() {
         var isOdd = function(num) { return num % 2 !== 0; };
-        var odds = FILL_ME_IN;
+        var odds = _.filter([1, 2, 3, 4, 5, 6], isOdd);
 
         expect(odds).to.eql([1, 3, 5]);
       });
@@ -271,30 +271,6 @@
       it('should not mutate the input array', function() {
         var input = [1, 2, 3, 4, 5];
         var result = _.uniq(input);
-
-        /*
-         * Mutation of inputs should be avoided without good justification otherwise
-         * as it can often lead to hard to find bugs and confusing code!
-         * Imagine we were reading the code above, and we added the following line:
-         *
-         * var lastElement = input[input.length - 1];
-         *
-         * Without knowing that mutation occured inside of _.uniq,
-         * we would assume that `lastElement` is 5. But if inside of
-         * _.uniq, we use the array method `pop`, we would permanently
-         * change `input` and our assumption would not longer be true,
-         * `lastElement` would be 4 instead!
-         *
-         * The tricky part is that we have no way of knowing about the mutation
-         * just by looking at the code above. We'd have to dive into the
-         * implementation of _.uniq to the exact line that uses `pop`.
-         * If we write a lot of code with this assumption, it might be very hard
-         * to trace back to the correct line in _.uniq.
-         *
-         * You can avoid an entire class of bugs by writing functions
-         * that don't mutate their inputs!
-         */
-
         expect(input).to.eql([1, 2, 3, 4, 5]);
       });
 
@@ -306,9 +282,9 @@
 
       it('should handle iterators that work with a sorted array', function() {
         var iterator = function(value) { return value === 1; };
-        var numbers = [1, 2, 2, 3, 4, 4];
+        var numbers = [1, 2, 2];
 
-        expect(_.uniq(FILL_ME_IN)).to.eql([1, 2]);
+        expect(_.uniq(numbers)).to.eql([1, 2]);
       });
 
       it('should produce a brand new array instead of modifying the input array', function() {
