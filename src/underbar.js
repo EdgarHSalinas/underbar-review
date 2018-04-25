@@ -239,6 +239,17 @@
   // provided, provide a default one
   _.some = function(collection, iterator) {
     // TIP: There's a very clever way to re-use every() here.
+    iterator = iterator || _.identity;
+    return !_.every(collection, function(test) {
+        return !iterator(test);
+      });
+   
+
+
+    // iterator = iterator || _.identity;
+    // return !!_.reduce(collection, function(test,value){
+    //   return test || iterator(value);
+    // }, false);
   };
 
 
